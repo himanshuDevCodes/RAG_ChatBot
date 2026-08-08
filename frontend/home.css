@@ -146,6 +146,30 @@ body {
   margin-bottom: 10px;
   color: #00796b;
 }
+#upload-section{
+    padding:20px;
+    border-bottom:1px solid #ddd;
+    margin-bottom:15px;
+}
+
+#upload-section h3{
+    margin-bottom:15px;
+}
+
+#pdf-file{
+    margin-right:10px;
+}
+
+#upload-button{
+    padding:8px 18px;
+    cursor:pointer;
+}
+
+#upload-status{
+    margin-top:10px;
+    color:green;
+    font-weight:bold;
+}
 
 /* Footer */
 footer {

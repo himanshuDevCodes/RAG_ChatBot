@@ -14,15 +14,50 @@
 </div>
 
   <div id="chat-container">
+
+    <h2>🤖 AI RAG Chatbot</h2>
+
+    <!-- Upload Section -->
+    <div id="upload-section">
+
+        <h3>📄 Upload PDF</h3>
+
+        <input
+            type="file"
+            id="pdf-file"
+            accept=".pdf"
+        >
+
+        <button id="upload-button">
+            Upload
+        </button>
+
+        <p id="upload-status">
+            No PDF uploaded.
+        </p>
+
+    </div>
+
+    <hr>
+
+    <!-- Chat Messages -->
     <div id="chat-box"></div>
+
+    <!-- Chat Input -->
     <form id="chat-form">
-      <input type="text" id="user-input" placeholder="Type a message..." />
-      <button type="submit" id="send-button">SEND</button>
+
+        <input
+            type="text"
+            id="user-input"
+            placeholder="Ask something..."
+        >
+
+        <button type="submit">
+            Send
+        </button>
+
     </form>
-  </div>
-  <div class="chatbox">
-  <div class="messages" id="chatMessages"></div>
-  <div class="input-area">
+
 </div>
 
 

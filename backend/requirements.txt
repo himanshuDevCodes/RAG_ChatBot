@@ -7,3 +7,9 @@ langchain-core
 langchain-groq
 groq
 python-dotenv
+
+
+langchain-huggingface
+chromadb
+sentence-transformers
+pypdf
