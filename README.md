@@ -1,203 +1,156 @@
-Title: AI Chatbot with Custom Memory (Groq API + FastAPI)
+# AI RAG Chatbot
 
-Description: Custom memory feature, real-time chat, Python backend.
+A simple AI chatbot that uses **FastAPI** for the backend and a plain **HTML/CSS/JavaScript** frontend. The app supports PDF uploads, document retrieval via vector search, and Groq API-powered chat responses.
 
-Features list:
+## Key Features
 
-- **Custom Memory**: Remembers previous conversations for context-aware responses
-- **Real-time Chat**: Instant AI replies via Groq API integration
-- **FastAPI Backend**: High-performance Python REST API with async support
-- **Modern Frontend**: Responsive HTML/CSS/JS interface for seamless user experience
-- **Secure API Keys**: Environment variables (.env) for Groq token protection
-- **Easy Deployment**: requirements.txt & uvicorn for one-click setup
-- **MIT Licensed**: Open-source, free for personal/commercial use with attribution
+- 📄 Upload PDF documents
+- 🧠 Retrieve document context for answers
+- 🤖 Chat bot using the Groq API
+- ⚡ FastAPI backend with CORS enabled
+- 🌐 Frontend connects to backend at `http://localhost:8000`
+- 🔐 Stores secrets in `.env`
 
-
-Installation: pip install -r requirements.txt, uvicorn app:app --reload.
-
-
-## Live Demo
-
-Frontend:
-https://your-project.vercel.app
-
-Backend:
-https://your-backend.onrender.com/docs
-
----------------------------------------------------------------------------------------
-# 🤖 AI Chatbot with Memory
-
-An intelligent AI chatbot built using **FastAPI** and **LangChain** with conversation memory support. The chatbot provides context-aware responses by remembering previous interactions, creating a more natural conversational experience.
-
----
-
-## 🚀 Live Demo
-
-**Frontend:** https://your-vercel-url.vercel.app/
-
-**Backend API:** https://your-render-url.onrender.com
-
-**API Documentation (Swagger):** https://your-render-url.onrender.com/docs
-
----
-
-## 📌 Features
-
-- 💬 AI-powered chatbot
-- 🧠 Conversation memory
-- ⚡ FastAPI backend
-- 🌐 Responsive HTML, CSS & JavaScript frontend
-- 🔄 REST API integration
-- ☁️ Deployed on Render & Vercel
-- 🔐 Environment variable support for API keys
-- 📖 Interactive Swagger API documentation
-
----
-
-## 🛠️ Tech Stack
-
-### Backend
-- Python
-- FastAPI
-- LangChain
-- Uvicorn
-- Python-dotenv
-
-### Frontend
-- HTML
-- CSS
-- JavaScript
-
-### Deployment
-- Render (Backend)
-- Vercel (Frontend)
-- GitHub
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```
-AI_ChatBot_Memory/
-│
+RAG_ChatBot/
 ├── backend/
 │   ├── app.py
+│   ├── config.py
 │   ├── requirements.txt
-│   ├── .env
-│   └── ...
-│
-├── frontend/
-│   ├── index.html
-│   ├── script.js
-│   ├── styles.css
-│   └── ...
-│
-└── README.md
+│   ├── rag/
+│   │   ├── chunking.py
+│   │   ├── embeddings.py
+│   │   ├── ingest.py
+│   │   ├── loader.py
+│   │   ├── retriever.py
+│   │   └── vector_store.py
+│   ├── chroma_db/
+│   ├── data/
+│   └── uploads/
+└── frontend/
+    ├── index.html
+    ├── script.js
+    ├── styles.css
+    └── home.html
 ```
 
----
+## Requirements
 
-## ⚙️ Installation
+The backend dependencies are listed in `backend/requirements.txt`.
 
-### 1. Clone the Repository
+Main packages include:
 
-```bash
-git clone https://github.com/himanshuDevCodes/Ai_ChatBot_Memory.git
-```
+- `fastapi`
+- `uvicorn`
+- `groq`
+- `python-dotenv`
+- `chromadb`
+- `sentence-transformers`
+- `pypdf`
 
-### 2. Navigate to the Project
+## Setup
 
-```bash
-cd Ai_ChatBot_Memory
-```
-
-### 3. Create Virtual Environment
+1. Open a terminal in the project root.
+2. Create a virtual environment:
 
 ```bash
 python -m venv venv
 ```
 
-### 4. Activate Virtual Environment
+3. Activate the environment:
 
-Windows
+Windows:
 
-```bash
+```powershell
 venv\Scripts\activate
 ```
 
-Linux / macOS
+macOS / Linux:
 
 ```bash
 source venv/bin/activate
 ```
 
-### 5. Install Dependencies
+4. Install backend dependencies:
 
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-### 6. Configure Environment Variables
-
-Create a `.env` file inside the `backend` folder.
-
-Example:
+5. Create a `.env` file inside `backend/` with your Groq API key:
 
 ```env
-OPENAI_API_KEY=your_api_key
+GROQ_API_KEY=your_groq_api_key
 ```
 
----
+## Run the App
 
-## ▶️ Run Backend
+From the `backend/` folder, start the FastAPI server:
 
 ```bash
-cd backend
 python -m uvicorn app:app --reload
 ```
 
-Backend will be available at:
+## Frontend Usage
 
-```
-http://localhost:8000
-```
+Open the `frontend/index.html` file in your browser. If you want a local server, you can also use VS Code Live Server or any static file server to serve the `frontend/` folder.
 
-Swagger Documentation:
+Then use the chat interface to upload a PDF and send questions.
 
-```
-http://localhost:8000/docs
-```
+## API Endpoints
 
----
+### Upload PDF
 
-## ▶️ Run Frontend
+`POST /upload`
 
-Open
+- Accepts a PDF file
+- Saves it to `backend/uploads`
+- Builds a vector store for retrieval
 
-```
-frontend/index.html
-```
+### Chat
 
-or use the **Live Server** extension in VS Code.
+`POST /chat/`
 
----
-
-## 📡 API Endpoint
-
-### Chat Endpoint
-
-```
-POST /chat
-```
-
-Example Request
+Request body example:
 
 ```json
 {
-  "message": "Hello"
+  "message": "What is this document about?",
+  "conversation_id": "001a"
 }
 ```
+
+Response example:
+
+```json
+{
+  "response": "...assistant answer...",
+  "conversation_id": "001a"
+}
+```
+
+## Notes
+
+- The frontend uses `http://localhost:8000` as the backend URL.
+- A PDF must be uploaded before chat questions can use document context.
+- The backend currently requires `GROQ_API_KEY` in `.env`.
+
+## Troubleshooting
+
+- If Uvicorn cannot import `app`, run it from the `backend/` folder or use:
+
+```bash
+python -m uvicorn backend.app:app --reload
+```
+
+- Make sure `python-dotenv` is installed and the `.env` file is present.
+
+## License
+
+MIT License.
 
 Example Response
 
